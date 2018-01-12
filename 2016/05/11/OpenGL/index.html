@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="关于项目中的一些对OpenGL的理解 gluPerspective函数gluPerspective(45.0f, (GLfloat)(w) / (GLfloat)(h), 0.00001f, 10000.0f);这是设置透视投影的函数：第一个参数是观察角度，通常为45°第二个参数是窗口的宽高比，通常为显示窗口的宽高比第三个参数是观察的最近距离，注意你的数据的Z值是多大，根据Z值调整，不能小于0第四">
+<meta name="keywords" content="C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenGL">
+<meta property="og:url" content="http://www.webzhou.com/2016/05/11/OpenGL/index.html">
+<meta property="og:site_name" content="Frank&#39;s Blog">
+<meta property="og:description" content="关于项目中的一些对OpenGL的理解 gluPerspective函数gluPerspective(45.0f, (GLfloat)(w) / (GLfloat)(h), 0.00001f, 10000.0f);这是设置透视投影的函数：第一个参数是观察角度，通常为45°第二个参数是窗口的宽高比，通常为显示窗口的宽高比第三个参数是观察的最近距离，注意你的数据的Z值是多大，根据Z值调整，不能小于0第四">
+<meta property="og:updated_time" content="2018-01-11T15:49:30.498Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OpenGL">
+<meta name="twitter:description" content="关于项目中的一些对OpenGL的理解 gluPerspective函数gluPerspective(45.0f, (GLfloat)(w) / (GLfloat)(h), 0.00001f, 10000.0f);这是设置透视投影的函数：第一个参数是观察角度，通常为45°第二个参数是窗口的宽高比，通常为显示窗口的宽高比第三个参数是观察的最近距离，注意你的数据的Z值是多大，根据Z值调整，不能小于0第四">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>OpenGL</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2017/10/13/初识Canvas/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2016/03/23/JS简单笔记/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://www.webzhou.com/2016/05/11/OpenGL/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://www.webzhou.com/2016/05/11/OpenGL/&text=OpenGL"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://www.webzhou.com/2016/05/11/OpenGL/&title=OpenGL"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.webzhou.com/2016/05/11/OpenGL/&is_video=false&description=OpenGL"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=OpenGL&body=Check out this article: http://www.webzhou.com/2016/05/11/OpenGL/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://www.webzhou.com/2016/05/11/OpenGL/&title=OpenGL"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://www.webzhou.com/2016/05/11/OpenGL/&title=OpenGL"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://www.webzhou.com/2016/05/11/OpenGL/&title=OpenGL"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://www.webzhou.com/2016/05/11/OpenGL/&title=OpenGL"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://www.webzhou.com/2016/05/11/OpenGL/&name=OpenGL&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#关于项目中的一些对OpenGL的理解"><span class="toc-number">1.</span> <span class="toc-text">关于项目中的一些对OpenGL的理解</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        OpenGL
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Frank's Blog</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2016-05-11T14:46:47.000Z" itemprop="datePublished">2016-05-11</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/C/">C++</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="关于项目中的一些对OpenGL的理解"><a href="#关于项目中的一些对OpenGL的理解" class="headerlink" title="关于项目中的一些对OpenGL的理解"></a>关于项目中的一些对OpenGL的理解</h1><ol>
+<li><p>gluPerspective函数<br>gluPerspective(45.0f, (GLfloat)(w) / (GLfloat)(h), 0.00001f, 10000.0f);<br>这是设置透视投影的函数：<br>第一个参数是观察角度，通常为45°<br>第二个参数是窗口的宽高比，通常为显示窗口的宽高比<br>第三个参数是观察的最近距离，注意你的数据的Z值是多大，根据Z值调整，不能小于0<br>第四个参数是观察的最远距离，丢一个意想不到的大值过去吧</p>
+</li>
+<li><p>glScalef函数<br>glScalef(0.5，0.5，0.5)<br>调用这个可以改变比例尺的函数同时也会改变位置，比如点(2.0，3.0，1.0)就会变成(1.0，1.5，0.5)<br>即(Xscale，Yscale，Z*scale)，所以后面的坐标应变成 X/m_dSacle，这样才是正确的坐标</p>
+</li>
+<li><p>透视投影和正射投影的切换</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 设置投影方式</span></span><br><span class="line">    <span class="keyword">if</span> (!m_isPerspective)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 旋转中心，投影中心</span></span><br><span class="line">        <span class="keyword">double</span> dCenterX = (m_MinPntX + m_MaxPntX) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">double</span> dCenterY = (m_MinPntZ + m_MaxPntZ) / <span class="number">2</span>;</span><br><span class="line">        glOrtho(<span class="number">-1.2</span> * m_BoxLength * ((<span class="keyword">double</span>)m_Width / (<span class="keyword">double</span>)m_Height) + dCenterX, </span><br><span class="line">                 <span class="number">1.2</span> * m_BoxLength * ((<span class="keyword">double</span>)m_Width / (<span class="keyword">double</span>)m_Height) + dCenterX, </span><br><span class="line">                <span class="number">-1.2</span> * m_BoxLength + dCenterY, </span><br><span class="line">                 <span class="number">1.2</span> * m_BoxLength + dCenterY, </span><br><span class="line">                 <span class="number">-10000.0f</span>, <span class="number">10000.0f</span>);</span><br><span class="line">        <span class="keyword">double</span> dHalfW = (<span class="keyword">double</span>)m_Width / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">double</span> dHalfH = (<span class="keyword">double</span>)m_Height / <span class="number">2</span>;</span><br><span class="line">        <span class="comment">// 设置视点(正射投影通过视点控制远近)</span></span><br><span class="line">        glViewport(dHalfW - dHalfW * m_dZoomFactor, dHalfH - dHalfH * m_dZoomFactor,</span><br><span class="line">                   <span class="number">2</span> * dHalfW * m_dZoomFactor, <span class="number">2</span> * dHalfH * m_dZoomFactor);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        gluPerspective(<span class="number">45.0f</span>, (GLfloat)m_Width / (GLfloat)m_Height, <span class="number">0.00001f</span>, <span class="number">10000.0f</span>);</span><br><span class="line">        <span class="comment">// 设置视点(透射投影通过glTranslatef控制远近)</span></span><br><span class="line">        glViewport(<span class="number">0</span>, <span class="number">0</span>, m_Width, m_Height);                        <span class="comment">// 0，0为左上角</span></span><br><span class="line">    &#125;</span><br><span class="line">    glTranslatef(<span class="number">0</span>, <span class="number">0</span>, m_MoveIntoScreen);                           <span class="comment">// Move Into Screen</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>视口变换函数glViewport(GLint x,GLint y,GLsizei width,GLsizei height)有四个参数，负责把视景体截取的图像按照怎样的高和宽显示到屏幕上。X，Y——以像素为单位，指定了视口的左下角（在第一象限内，以（0，0）为原点的）位置。width，height——表示这个视口矩形的宽度和高度，根据窗口的实时变化重绘窗口。另外glViewport函数还可以用来调整图像的分辨率。例如，保持目前的窗体大小不变，我们如果用这个size来只显示整个物体的一部分，那么图像的分辨率就必然会增大。</p>
+</li>
+<li><p>正射投影函数glOrho(left, right, bottom, top, near, far)，六个参数。left表示视景体左面的坐标，right表示右面的坐标，bottom表示下面的，top表示上面的。这个函数简单理解起来，就是一个物体摆在那里，你怎么去截取他。</p>
+</li>
+</ol>
+<ul>
+<li>假设有一个球体，半径为1，圆心在(0, 0, 0)；</li>
+<li>那么，我们设定glOrtho(-1.5, 1.5, -1.5, 1.5, -10, 10)；就表示用一个宽高都是3的框框把这个球体整个都装了进来；</li>
+<li>如果设定glOrtho(0.0, 1.5, -1.5, 1.5, -10, 10)；就表示用一个宽是1.5， 高是3的框框把整个球体的右面装进来；</li>
+<li>如果设定glOrtho(0.0, 1.5, 0.0, 1.5, -10, 10)；就表示用一个宽和高都是1.5的框框把球体的右上角装了进来。</li>
+</ul>
+<blockquote>
+<p>切换两种投影方式在paintGL里面设置比较好，若在resizeGL里面设置，需要改变显示窗口的大小才会改变投影方式，不符合常用的操作习惯，而且传参不方便<br>参考<a href="http://blog.csdn.net/shizhipeng/article/details/4939529" target="_blank" rel="noopener">glViewport()函数和glOrtho()函数的理解</a></p>
+</blockquote>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#关于项目中的一些对OpenGL的理解"><span class="toc-number">1.</span> <span class="toc-text">关于项目中的一些对OpenGL的理解</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://www.webzhou.com/2016/05/11/OpenGL/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://www.webzhou.com/2016/05/11/OpenGL/&text=OpenGL"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://www.webzhou.com/2016/05/11/OpenGL/&title=OpenGL"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.webzhou.com/2016/05/11/OpenGL/&is_video=false&description=OpenGL"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=OpenGL&body=Check out this article: http://www.webzhou.com/2016/05/11/OpenGL/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://www.webzhou.com/2016/05/11/OpenGL/&title=OpenGL"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://www.webzhou.com/2016/05/11/OpenGL/&title=OpenGL"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://www.webzhou.com/2016/05/11/OpenGL/&title=OpenGL"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://www.webzhou.com/2016/05/11/OpenGL/&title=OpenGL"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://www.webzhou.com/2016/05/11/OpenGL/&name=OpenGL&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 Frank Zhou
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+

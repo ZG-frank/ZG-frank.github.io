@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="CanvasHTML5标准带来了一些新的HTML标签，如&amp;lt;canvas&amp;gt;&amp;lt;/canvas&amp;gt;，允许我们使用Javascript在canvas标签里绘制2D或3D图形和动画。我对Web动画、图形的绘制了解比较少，平时也被各种炫酷的动画吸引了目光，下面就谈谈对canvas绘图的理解以及自己实践过的一些方法，用一个条形进度条和一个仿科幻文字做展示例子。&amp;lt;canvas&amp;gt;元">
+<meta name="keywords" content="HTML5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初识Canvas">
+<meta property="og:url" content="http://www.webzhou.com/2017/10/13/初识Canvas/index.html">
+<meta property="og:site_name" content="Frank&#39;s Blog">
+<meta property="og:description" content="CanvasHTML5标准带来了一些新的HTML标签，如&amp;lt;canvas&amp;gt;&amp;lt;/canvas&amp;gt;，允许我们使用Javascript在canvas标签里绘制2D或3D图形和动画。我对Web动画、图形的绘制了解比较少，平时也被各种炫酷的动画吸引了目光，下面就谈谈对canvas绘图的理解以及自己实践过的一些方法，用一个条形进度条和一个仿科幻文字做展示例子。&amp;lt;canvas&amp;gt;元">
+<meta property="og:updated_time" content="2018-01-11T15:55:08.970Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初识Canvas">
+<meta name="twitter:description" content="CanvasHTML5标准带来了一些新的HTML标签，如&amp;lt;canvas&amp;gt;&amp;lt;/canvas&amp;gt;，允许我们使用Javascript在canvas标签里绘制2D或3D图形和动画。我对Web动画、图形的绘制了解比较少，平时也被各种炫酷的动画吸引了目光，下面就谈谈对canvas绘图的理解以及自己实践过的一些方法，用一个条形进度条和一个仿科幻文字做展示例子。&amp;lt;canvas&amp;gt;元">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>初识Canvas</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2018/01/11/hello-world/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2016/05/11/OpenGL/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://www.webzhou.com/2017/10/13/初识Canvas/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://www.webzhou.com/2017/10/13/初识Canvas/&text=初识Canvas"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://www.webzhou.com/2017/10/13/初识Canvas/&title=初识Canvas"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.webzhou.com/2017/10/13/初识Canvas/&is_video=false&description=初识Canvas"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=初识Canvas&body=Check out this article: http://www.webzhou.com/2017/10/13/初识Canvas/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://www.webzhou.com/2017/10/13/初识Canvas/&title=初识Canvas"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://www.webzhou.com/2017/10/13/初识Canvas/&title=初识Canvas"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://www.webzhou.com/2017/10/13/初识Canvas/&title=初识Canvas"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://www.webzhou.com/2017/10/13/初识Canvas/&title=初识Canvas"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://www.webzhou.com/2017/10/13/初识Canvas/&name=初识Canvas&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Canvas"><span class="toc-number">1.</span> <span class="toc-text">Canvas</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一个例子"><span class="toc-number">1.1.</span> <span class="toc-text">第一个例子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二个例子"><span class="toc-number">1.2.</span> <span class="toc-text">第二个例子</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        初识Canvas
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Frank's Blog</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2017-10-13T13:30:02.000Z" itemprop="datePublished">2017-10-13</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/HTML5/">HTML5</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <h1 id="Canvas"><a href="#Canvas" class="headerlink" title="Canvas"></a>Canvas</h1><p>HTML5标准带来了一些新的HTML标签，如<code>&lt;canvas&gt;&lt;/canvas&gt;</code>，允许我们使用Javascript在canvas标签里绘制2D或3D图形和动画。我对Web动画、图形的绘制了解比较少，平时也被各种炫酷的动画吸引了目光，下面就谈谈对canvas绘图的理解以及自己实践过的一些方法，用一个条形进度条和一个仿科幻文字做展示例子。<br><code>&lt;canvas&gt;</code>元素不被一些老的浏览器所支持，但是所有的主流浏览器的新近版本都支持，兼容性问题尚好。使用canvas标签来绘制图形或动画需要掌握一些基本的HTML和JavaScript知识，通过canvas的api和了解canvas绘图的原理即可。其实canvas上的动作的原理和显示器中动作原理是一样的，都是一帧一帧绘制静态图形，绘制刷新的速度超过了我们的人眼识别速度，所以看上去就像真的在动一样。不同点是显示器的刷新是实时的，而canvas的刷新需要我们通过js控制来手动进行触发，如果只是绘制简单的静态图形，那么这一步就不需要我们手动控制进行刷新了。比如说我们想要一个矩形从左边移到右边，开始时可以让矩形在最左边，然后下一秒时再往右一些绘制相同的矩形，但是前提是先把原来的矩形给去掉，再重新绘制。通过不断的擦出和重绘，就会出现动作效果，通过加快速度不被人眼识破。<br>canvas在html文档中通过标签创建后是空白的，是一个固定大小的画布，可以通过width和height控制它的宽高，默认大小为300像素×150像素（px）。为了展示，首先需要找到渲染上下文，然后通过js在canvas上进行绘制。<code>&lt;canvas&gt;</code>元素有一个叫做getContext()的方法，这个方法是用来获得渲染上下文和它的绘画功能。getContext()只有一个参数，上下文的格式，对于2D图像而言，填入’2d’字符串。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> canvas = <span class="built_in">document</span>.getElementByTagName(<span class="string">'canvas'</span>)[<span class="number">0</span>];</span><br><span class="line"><span class="keyword">var</span> ctx = canvas.getContext(<span class="string">'2d'</span>);</span><br><span class="line"><span class="comment">// 清除画布</span></span><br><span class="line">context.clearRect(<span class="number">0</span>, <span class="number">0</span>, canvas.width, canvas.height);</span><br></pre></td></tr></table></figure></p>
+<h2 id="第一个例子"><a href="#第一个例子" class="headerlink" title="第一个例子"></a>第一个例子</h2><p><a href="https://codepen.io/zgfrank/pen/qPMdwY" target="_blank" rel="noopener">条形进度条</a><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> canvas = <span class="built_in">document</span>.getElementById(<span class="string">'canvas'</span>),</span><br><span class="line">    context = canvas.getContext(<span class="string">'2d'</span>),</span><br><span class="line">    centerX = canvas.width/<span class="number">2</span>,</span><br><span class="line">    centerY = canvas.height/<span class="number">2</span>,</span><br><span class="line">    speed = <span class="number">0.1</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">text</span>(<span class="params">n</span>)</span>&#123;</span><br><span class="line">  context.save();</span><br><span class="line">  context.fillStyle = <span class="string">"#F47C7C"</span>;</span><br><span class="line">  context.font = <span class="string">"40px Arial"</span>;</span><br><span class="line">  context.textAlign = <span class="string">"center"</span>;</span><br><span class="line">  context.textBaseline = <span class="string">"middle"</span>;</span><br><span class="line">  context.fillText(n.toFixed(<span class="number">0</span>)+<span class="string">"%"</span>, centerX, centerY);</span><br><span class="line">  context.restore();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">rectfixed</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  context.beginPath();</span><br><span class="line">  context.rect(<span class="number">50</span>, <span class="number">140</span>, <span class="number">400</span>, <span class="number">20</span>);</span><br><span class="line">  </span><br><span class="line">  context.lineWidth = <span class="number">1</span>;</span><br><span class="line">  context.strokeStyle = <span class="string">'white'</span>;</span><br><span class="line">  context.fillStyle = <span class="string">'white'</span>;</span><br><span class="line"></span><br><span class="line">  context.fill();</span><br><span class="line">  context.stroke();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">rectmove</span>(<span class="params">speed</span>)</span>&#123;</span><br><span class="line">  context.beginPath();</span><br><span class="line">  context.rect(<span class="number">50</span>, <span class="number">140</span>, speed*<span class="number">4</span>, <span class="number">20</span>);</span><br><span class="line"></span><br><span class="line">  context.lineWidth = <span class="number">1</span>;</span><br><span class="line">  context.fillStyle = <span class="string">'#F47C7C'</span>;</span><br><span class="line"></span><br><span class="line">  context.fill();</span><br><span class="line">  context.stroke();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">drawFrame</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">window</span>.requestAnimationFrame(drawFrame, canvas);</span><br><span class="line">  context.clearRect(<span class="number">0</span>, <span class="number">0</span>, canvas.width, canvas.height);</span><br><span class="line"></span><br><span class="line">  text(speed);</span><br><span class="line">  rectfixed()</span><br><span class="line">  rectmove(speed)</span><br><span class="line">  <span class="keyword">if</span>(speed &gt; <span class="number">100</span>) speed = <span class="number">0</span>;</span><br><span class="line">  speed += <span class="number">0.2</span>;</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure></p>
+<p>从代码上看，首先绘制矩形的api是context.rect(x, y, width, height)，分别是x/y坐标，宽和高。第一个条形是固定不动的，第二个条形的宽随着speed的变动而变动，通过window.requestAnimationFrame循环调动drawFrame函数达到动画的效果。requestAnimationFrame是一个新的API，作用与setTimeInterval一样，不同的是它会根据浏览器的刷新频率自动调整动画的时间间隔。也别忘了要对画布调用clearRect方法清除上一帧的图案才能产生正确效果。绘制文本的api是，给图形上色有两个重要的属性可以做到，分别是fillStyle和strokeStyle。fillStyle是设置图形的填充颜色，strokestyle是设置图形的轮廓颜色，通过fill()和stroke()方法，还有更多样式设置可以参考MDN中的canvas API。</p>
+<h2 id="第二个例子"><a href="#第二个例子" class="headerlink" title="第二个例子"></a>第二个例子</h2><p><a href="https://codepen.io/zgfrank/pen/wrEYwx" target="_blank" rel="noopener">仿科幻文字效果</a><br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> canvas = <span class="built_in">document</span>.querySelector(<span class="string">'#test'</span>),</span><br><span class="line">    ctx = canvas.getContext(<span class="string">'2d'</span>);</span><br><span class="line">    canvas.width = <span class="built_in">window</span>.innerWidth,</span><br><span class="line">    canvas.height = <span class="built_in">window</span>.innerHeight;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> shadowColor = <span class="string">'rgba(0, 0, 0, 0.08)'</span>,  <span class="comment">//用于覆盖文字的渐变阴影</span></span><br><span class="line">    textColor = <span class="string">"#33ff33"</span>,                <span class="comment">//文字颜色</span></span><br><span class="line">    words = <span class="string">"0123456789qwertyuiopasdfghjklzxcvbnm,./;'\[]QWERTYUIOP&#123;&#125;ASDFGHJHJKL:ZXCVBBNM&lt;&gt;?"</span>,      <span class="comment">//随机文字</span></span><br><span class="line">    wordsArray = words.split(<span class="string">''</span>),         <span class="comment">//将文字拆分进一个数组</span></span><br><span class="line">    fontSize = <span class="number">18</span>,                        <span class="comment">//字体大小</span></span><br><span class="line">    columns = canvas.width / fontSize,    <span class="comment">//文字降落的列数</span></span><br><span class="line">    drops = [];                           <span class="comment">//文字行数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; columns; i++)&#123;</span><br><span class="line">  <span class="comment">//从第一行开始</span></span><br><span class="line">  drops[i] = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">drawText</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  ctx.save();</span><br><span class="line">  ctx.fillStyle = textColor;</span><br><span class="line">  ctx.font = fontSize + <span class="string">"px arial"</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; drops.length; i++)&#123;</span><br><span class="line">    <span class="comment">// 随机取文字</span></span><br><span class="line">    <span class="keyword">var</span> text = wordsArray[<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * wordsArray.length)];</span><br><span class="line">    <span class="comment">// 绘制第n行文字</span></span><br><span class="line">    ctx.fillText(text, i * fontSize, drops[i] * fontSize);</span><br><span class="line">    <span class="comment">// 差异，数字越小差异越小</span></span><br><span class="line">    <span class="keyword">if</span> (drops[i] * fontSize &gt; canvas.height &amp;&amp; <span class="built_in">Math</span>.random() &gt; <span class="number">0.99</span>)&#123;</span><br><span class="line">      drops[i] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    drops[i]++;</span><br><span class="line">  &#125;</span><br><span class="line">  ctx.restore();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">drawFrame</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">window</span>.requestAnimationFrame(drawFrame, canvas);</span><br><span class="line">  <span class="comment">// 阴影覆盖文字</span></span><br><span class="line">  ctx.fillStyle = shadowColor;</span><br><span class="line">  ctx.fillRect(<span class="number">0</span>, <span class="number">0</span>, canvas.width, canvas.height);</span><br><span class="line">  drawText();</span><br><span class="line">&#125;())</span><br></pre></td></tr></table></figure></p>
+<p>上面的代码就是实现该效果的关键：通过fillText()方法来绘制随机的字符，通过fillRect()方法覆盖一个带有透明度的黑色矩形实现文字被覆盖形成阴影的效果。绘制列数是canvas宽度/字体大小。在绘制函数中，最开始是一行行绘制，所以创建drop数组一开始都为1，为了从第一行开始绘制，因此刚刷新的时候是从第一行绘制到最后一行。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">context.fillText(text, i * fontSize, drops[i] * fontSize);</span><br></pre></td></tr></table></figure></p>
+<p>fillText()有三个参数，第一个是绘制的随机文字，第二是文字的X起始坐标，三是文字的Y起始坐标。所以第一行每个文字的X轴坐标是0,18,36…，而Y轴坐标为18,18,18,…。绘制第二行则将drops数组的值都加1，即第二行的Y轴坐标为（32，32，32…）。依次类推，从第一行到最后一行就绘制了满屏的文字，通过fillRect()加上覆盖的黑色透明矩形，就有点类似实现了渐变阴影的文字向下运动动画。为了显示重复绘制的效果，需要设置当绘制到最后一行了，需要从第一行开始绘制：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (drops[i] * fontSize &gt; canvas.height )&#123;</span><br><span class="line">    drops[i] = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>但是这样我们会发现，每一行文字都是同时绘制的，没有差异性，这样不能达到不同列错落有致的效果。为了显示出每一行文字的差异性，就必须让一些列先从第一行开始绘制，一些列后面再从第一行开始绘制，怎么达到呢，可以增加随机数，同时判断随机数和是否绘制到了最后一行，同时满足的列才开始从第一行绘制：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (drops[i] * fontSize &gt; canvas.height &amp;&amp; <span class="built_in">Math</span>.random() &gt; <span class="number">0.99</span>)&#123;</span><br><span class="line">    drops[i] = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p><a href="https://segmentfault.com/a/1190000011543528" target="_blank" rel="noopener">文章也放在了Segmentfault上</a></p>
+</blockquote>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Canvas"><span class="toc-number">1.</span> <span class="toc-text">Canvas</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一个例子"><span class="toc-number">1.1.</span> <span class="toc-text">第一个例子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二个例子"><span class="toc-number">1.2.</span> <span class="toc-text">第二个例子</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://www.webzhou.com/2017/10/13/初识Canvas/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://www.webzhou.com/2017/10/13/初识Canvas/&text=初识Canvas"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://www.webzhou.com/2017/10/13/初识Canvas/&title=初识Canvas"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.webzhou.com/2017/10/13/初识Canvas/&is_video=false&description=初识Canvas"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=初识Canvas&body=Check out this article: http://www.webzhou.com/2017/10/13/初识Canvas/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://www.webzhou.com/2017/10/13/初识Canvas/&title=初识Canvas"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://www.webzhou.com/2017/10/13/初识Canvas/&title=初识Canvas"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://www.webzhou.com/2017/10/13/初识Canvas/&title=初识Canvas"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://www.webzhou.com/2017/10/13/初识Canvas/&title=初识Canvas"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://www.webzhou.com/2017/10/13/初识Canvas/&name=初识Canvas&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 Frank Zhou
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="JavaScript严格区分大小写，如果弄错了大小写，程序将报错或者运行不正常 数据类型：数字Number(不区分整数和浮点数；NaN无法计算结果、Infinity无限大)、字符串、布尔值、数组、对象、null、undefined 比较运算符：==比较和===比较==比较会自动转换数据类型再比较，很多时候，会得到非常诡异的结果；===比较不会自动转换数据类型，如果数据类型不一致，返回false，">
+<meta name="keywords" content="JS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS简单笔记">
+<meta property="og:url" content="http://www.webzhou.com/2016/03/23/JS简单笔记/index.html">
+<meta property="og:site_name" content="Frank&#39;s Blog">
+<meta property="og:description" content="JavaScript严格区分大小写，如果弄错了大小写，程序将报错或者运行不正常 数据类型：数字Number(不区分整数和浮点数；NaN无法计算结果、Infinity无限大)、字符串、布尔值、数组、对象、null、undefined 比较运算符：==比较和===比较==比较会自动转换数据类型再比较，很多时候，会得到非常诡异的结果；===比较不会自动转换数据类型，如果数据类型不一致，返回false，">
+<meta property="og:updated_time" content="2018-01-11T15:27:31.376Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS简单笔记">
+<meta name="twitter:description" content="JavaScript严格区分大小写，如果弄错了大小写，程序将报错或者运行不正常 数据类型：数字Number(不区分整数和浮点数；NaN无法计算结果、Infinity无限大)、字符串、布尔值、数组、对象、null、undefined 比较运算符：==比较和===比较==比较会自动转换数据类型再比较，很多时候，会得到非常诡异的结果；===比较不会自动转换数据类型，如果数据类型不一致，返回false，">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>JS简单笔记</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2016/05/11/OpenGL/"><i class="fa fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2016/03/22/一道C++题目/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://www.webzhou.com/2016/03/23/JS简单笔记/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://www.webzhou.com/2016/03/23/JS简单笔记/&text=JS简单笔记"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://www.webzhou.com/2016/03/23/JS简单笔记/&title=JS简单笔记"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.webzhou.com/2016/03/23/JS简单笔记/&is_video=false&description=JS简单笔记"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JS简单笔记&body=Check out this article: http://www.webzhou.com/2016/03/23/JS简单笔记/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://www.webzhou.com/2016/03/23/JS简单笔记/&title=JS简单笔记"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://www.webzhou.com/2016/03/23/JS简单笔记/&title=JS简单笔记"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://www.webzhou.com/2016/03/23/JS简单笔记/&title=JS简单笔记"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://www.webzhou.com/2016/03/23/JS简单笔记/&title=JS简单笔记"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://www.webzhou.com/2016/03/23/JS简单笔记/&name=JS简单笔记&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        JS简单笔记
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Frank's Blog</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2016-03-23T15:20:02.000Z" itemprop="datePublished">2016-03-23</time>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/JS/">JS</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <ol>
+<li>JavaScript严格区分大小写，如果弄错了大小写，程序将报错或者运行不正常</li>
+<li>数据类型：数字Number(不区分整数和浮点数；NaN无法计算结果、Infinity无限大)、字符串、布尔值、数组、对象、null、undefined</li>
+<li>比较运算符：==比较和===比较<br>==比较会自动转换数据类型再比较，很多时候，会得到非常诡异的结果；<br>===比较不会自动转换数据类型，如果数据类型不一致，返回false，如果一致，再比较。<br>由于JavaScript这个设计缺陷，不要使用==比较，始终坚持使用===比较。<br>另一个例外是NaN这个特殊的Number与所有其他值都不相等，包括它自己和自己比较。可以用函数isNaN(对象)；</li>
+<li><p>JS有一个关键字arguments，它只在函数内部起作用，并且永远指向当前函数的调用者传入的所有参数。它不是一个Array，可利用它获得传入的所有参数。最常用于判断传入参数的个数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a, b, c</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">arguments</span>.length === <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="comment">// 实际拿到的参数是a和b，c为undefined</span></span><br><span class="line">        c = b; <span class="comment">// 把b赋给c</span></span><br><span class="line">        b = <span class="literal">null</span>; <span class="comment">// b变为默认值</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>不在任何函数内定义的变量就具有全局作用域。实际上，JavaScript默认有一个全局对象window，全局作用域的变量实际上被绑定到window的一个属性。所以以变量方式var foo = function () {}定义的函数实际上也是一个全局变量，因此，顶层函数的定义也被视为一个全局变量，并绑定到window对象。</p>
+</li>
+<li><p>由于JavaScript的变量作用域实际上是函数内部，我们在for循环等语句块中是无法定义具有局部作用域的变量的，在ES6中引入了let，可以代替var申明一个块级作用域变量。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i=<span class="number">0</span>; i&lt;<span class="number">100</span>; i++) &#123;</span><br><span class="line">        sum += i;</span><br><span class="line">    &#125;</span><br><span class="line">    i += <span class="number">1</span>; <span class="comment">// SyntaxError</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通常用全大写来表示一个变量是常量。ES6标准引入了新的关键字const来定义常量，const与let都具有块级作用域。</p>
+</li>
+<li><p>在一个对象中绑定函数，称为这个对象的方法。如xiaoming里的age()方法，绑定后可以使用this关键字。要保证this指向正确，必须用obj.xxx()的形式调用！单独调用函数时this指向全局对象，也就是window。将var fn = obj.xxx()，调用fn()也是不行的。而且strict模式下函数的this指向undefined。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xiaoming = &#123;</span><br><span class="line">    name: <span class="string">'小明'</span>,</span><br><span class="line">    birth: <span class="number">1990</span>,</span><br><span class="line">    age: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> y = <span class="keyword">new</span> <span class="built_in">Date</span>().getFullYear();</span><br><span class="line">        <span class="keyword">return</span> y - <span class="keyword">this</span>.birth;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line">xiaoming.age; <span class="comment">// function xiaoming.age()</span></span><br><span class="line">xiaoming.age(); <span class="comment">// 今年调用是25,明年调用就变成26了</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>this在JavaScript中主要由以下五种使用场景。<br>1、在全局函数调用中，this绑定全局对象，浏览器环境全局对象为window 。<br>2、作为对象方法使用，this绑定到该对象。<br>3、在对象方法的内部的函数中，this也绑定全局对象。准确来说应该绑定到其外层函数对应的对象上，这是JavaScript的缺陷。解决方法：用一个变量在方法内部一开始就捕获this。<br>4、在构造函数中，this 绑定到新创建的对象。<br>5、使用 apply或call调用函数，this将会被显式设置为传入的的第一个参数。</p>
+</li>
+<li><p>虽然在一个独立的函数调用中，根据是否是strict模式，this指向undefined或window，不过，我们还是可以控制this的指向的！要指定函数的this指向哪个对象，可以用函数本身的apply方法，它接收两个参数，第一个参数就是需要绑定的this变量，第二个参数是Array，表示函数本身的参数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getAge</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> y = <span class="keyword">new</span> <span class="built_in">Date</span>().getFullYear();</span><br><span class="line">    <span class="keyword">return</span> y - <span class="keyword">this</span>.birth;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> xiaoming = &#123;</span><br><span class="line">    name: <span class="string">'小明'</span>,</span><br><span class="line">    birth: <span class="number">1990</span>,</span><br><span class="line">    age: getAge</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">xiaoming.age(); <span class="comment">// 25</span></span><br><span class="line">getAge.apply(xiaoming, []); <span class="comment">// 25, this指向xiaoming, 参数为空</span></span><br><span class="line">getAge(); <span class="comment">// 25</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>与apply()类似的方法是call()，唯一区别是：apply()把参数打包成Array再传入；call()把参数按顺序传入。对普通函数调用，通常把this绑定为null。<br>比如调用Math.max(3, 5, 4)，分别用apply()和call()实现如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Math</span>.max.apply(<span class="literal">null</span>, [<span class="number">3</span>, <span class="number">5</span>, <span class="number">4</span>]); <span class="comment">// 5</span></span><br><span class="line"><span class="built_in">Math</span>.max.call(<span class="literal">null</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">4</span>); <span class="comment">// 5</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>装饰器。利用apply()，可以动态改变函数的行为。JavaScript的所有对象都是动态的，即使内置的函数，也可以重新指向新的函数。现在假定想统计一下代码一共调用了多少次parseInt()，最佳方案是用自己的函数替换掉默认的parseInt()：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> count = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">var</span> oldParseInt = <span class="built_in">parseInt</span>; <span class="comment">// 保存原函数</span></span><br><span class="line"><span class="built_in">window</span>.parseInt = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    count += <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> oldParseInt.apply(<span class="literal">null</span>, <span class="built_in">arguments</span>); <span class="comment">// 调用原函数</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">// 测试:</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">'10'</span>);</span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">'20'</span>);</span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">'30'</span>);</span><br><span class="line">count; <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>JavaScript的函数其实都指向某个变量。既然变量可以指向函数，函数的参数能接收变量，那么一个函数就可以接收另一个函数作为参数，这种函数就称之为高阶函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y, f</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> f(x) + f(y);</span><br><span class="line">&#125;</span><br><span class="line">add(<span class="number">-5</span>, <span class="number">6</span>, <span class="built_in">Math</span>.abs); <span class="comment">// 11</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>map()方法定义在JavaScript的Array中，返回一个由原数组中的每个元素调用一个指定方法后的返回值组成的新数组。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">pow</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x * x;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>];</span><br><span class="line">arr.map(pow); <span class="comment">// [1, 4, 9, 16, 25, 36, 49, 64, 81]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//把Array的所有数字转为字符串：</span></span><br><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>];</span><br><span class="line">arr.map(<span class="built_in">String</span>); <span class="comment">// ['1', '2', '3', '4', '5', '6', '7', '8', '9']</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Array的reduce()把一个函数作用在这个Array的[x1, x2, x3…]上，这个函数必须接收两个参数，reduce()把结果继续和序列的下一个元素做累积计算，其效果就是：[x1, x2, x3, x4].reduce(f) = f(f(f(x1, x2), x3), x4)<br>比方说对一个Array求和，就可以用reduce实现：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">9</span>];</span><br><span class="line">arr.reduce(<span class="function"><span class="keyword">function</span> (<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;); <span class="comment">// 25</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>把一个字符串13579先变成Array——[1, 3, 5, 7, 9]，再利用reduce()就可以写出一个把字符串转换为Number的函数。<br>练习：不要使用JavaScript内置的parseInt()函数，利用map和reduce操作实现一个string2int()函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"><span class="comment">// 第一种</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">string2int</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line"><span class="keyword">var</span> arr=[];</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> i=<span class="number">0</span>;i&lt;s.length;i++)&#123;</span><br><span class="line">  arr[i]=s[i];</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">tonum</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line"> <span class="keyword">return</span> x*<span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">alert(arr);</span><br><span class="line"><span class="keyword">return</span> arr.map(tonum).reduce(<span class="function"><span class="keyword">function</span>(<span class="params">x,y</span>)</span>&#123;<span class="keyword">return</span> x*<span class="number">10</span>+y;&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二种</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">string2int</span>(<span class="params">s</span>) </span>&#123;</span><br><span class="line"><span class="keyword">return</span> s.split(<span class="string">''</span>).map(<span class="function"><span class="keyword">function</span>(<span class="params">x</span>)</span>&#123;<span class="keyword">return</span> <span class="number">1</span>*x;&#125;).reduce(<span class="function"><span class="keyword">function</span>(<span class="params">x,y</span>)</span>&#123;<span class="keyword">return</span> <span class="number">10</span>*x+y;&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试:</span></span><br><span class="line"><span class="keyword">if</span> (string2int(<span class="string">'0'</span>) === <span class="number">0</span> &amp;&amp; string2int(<span class="string">'12345'</span>) === <span class="number">12345</span> &amp;&amp; string2int(<span class="string">'12300'</span>) === <span class="number">12300</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (string2int.toString().indexOf(<span class="string">'parseInt'</span>) !== <span class="number">-1</span>) &#123;</span><br><span class="line">        alert(<span class="string">'请勿使用parseInt()!'</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (string2int.toString().indexOf(<span class="string">'Number'</span>) !== <span class="number">-1</span>) &#123;</span><br><span class="line">        alert(<span class="string">'请勿使用Number()!'</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        alert(<span class="string">'测试通过!'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">    alert(<span class="string">'测试失败!'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>把用户输入的不规范的英文名字，变为首字母大写，其他小写的规范名字。输入：[‘adam’, ‘LISA’, ‘barT’]，输出：[‘Adam’, ‘Lisa’, ‘Bart’]。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"><span class="comment">// tip:将第一个字母变成大写，剩下的变小写，substring或slice</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">normalize</span>(<span class="params">arr</span>) </span>&#123; </span><br><span class="line">    <span class="keyword">return</span> arr.map(<span class="function"><span class="keyword">function</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> x[<span class="number">0</span>].toUpperCase()+x.substring(<span class="number">1</span>).toLowerCase();</span><br><span class="line">&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试:</span></span><br><span class="line"><span class="keyword">if</span> (normalize([<span class="string">'adam'</span>, <span class="string">'LISA'</span>, <span class="string">'barT'</span>]).toString() === [<span class="string">'Adam'</span>, <span class="string">'Lisa'</span>, <span class="string">'Bart'</span>].toString()) &#123;</span><br><span class="line">    alert(<span class="string">'测试通过!'</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span> &#123;</span><br><span class="line">    alert(<span class="string">'测试失败!'</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>利用map()把字符串变成整数；由于map()接收的回调函数可以有3个参数：callback(currentValue, index, array)，通常我们仅需要第一个参数，而忽略了传入的后面两个参数。不幸的是，parseInt(string, radix)没有忽略第二个参数，导致实际执行的函数分别是：<br>parseInt(‘0’, 0); // 0, 按十进制转换<br>parseInt(‘1’, 1); // NaN, 没有一进制<br>parseInt(‘2’, 2); // NaN, 按二进制转换不允许出现2<br>可以改为r = arr.map(Number)；因为Number(value)函数仅接收一个参数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"><span class="keyword">var</span> arr = [<span class="string">'1'</span>, <span class="string">'2'</span>, <span class="string">'3'</span>];</span><br><span class="line"><span class="keyword">var</span> r;</span><br><span class="line"><span class="comment">// 正确</span></span><br><span class="line">r = arr.map(<span class="built_in">Number</span>);</span><br><span class="line"><span class="comment">// 正确</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">returnInt</span>(<span class="params">element</span>)</span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">parseInt</span>(element,<span class="number">10</span>);</span><br><span class="line">&#125;</span><br><span class="line">r = arr.map(returnInt);</span><br><span class="line"><span class="comment">// 错误</span></span><br><span class="line">r = arr.map(<span class="built_in">parseInt</span>);</span><br><span class="line">alert(<span class="string">'['</span> + r[<span class="number">0</span>] + <span class="string">', '</span> + r[<span class="number">1</span>] + <span class="string">', '</span> + r[<span class="number">2</span>] + <span class="string">']'</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>filter接收一个函数，把传入的函数依次作用于每个元素，然后根据返回值是true还是false决定保留还是丢弃该元素。用filter()筛选出素数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_primes</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> arr.filter(<span class="function"><span class="keyword">function</span>(<span class="params">x</span>)</span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (x === <span class="number">1</span>)&#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">2</span>; i &lt; x; i++)&#123;</span><br><span class="line">			<span class="keyword">if</span>(x % i === <span class="number">0</span>) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 测试:</span></span><br><span class="line"><span class="keyword">var</span></span><br><span class="line">    x,</span><br><span class="line">    r,</span><br><span class="line">    arr = [];</span><br><span class="line"><span class="keyword">for</span> (x = <span class="number">1</span>; x &lt; <span class="number">100</span>; x++) &#123;</span><br><span class="line">    arr.push(x);</span><br><span class="line">&#125;</span><br><span class="line">r = get_primes(arr);</span><br><span class="line"><span class="keyword">if</span> (r.toString() === [<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">17</span>, <span class="number">19</span>, <span class="number">23</span>, <span class="number">29</span>, <span class="number">31</span>, <span class="number">37</span>, <span class="number">41</span>, <span class="number">43</span>, <span class="number">47</span>, <span class="number">53</span>, <span class="number">59</span>, <span class="number">61</span>, <span class="number">67</span>, <span class="number">71</span>, <span class="number">73</span>, <span class="number">79</span>, <span class="number">83</span>, <span class="number">89</span>, <span class="number">97</span>].toString()) &#123;</span><br><span class="line">    alert(<span class="string">'测试通过!'</span>);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    alert(<span class="string">'测试失败: '</span> + r.toString());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Array的sort()方法默认把所有元素先转换为String再排序。默认情况下，对字符串排序，是按照ASCII的大小比较的。sort()也是一个高阶函数，它还可以接收一个比较函数来实现自定义的排序。return -1的结果放在前面。注意sort()方法返回的还是原来的Array。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 按从小到大排序：</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> arr = [<span class="number">10</span>, <span class="number">20</span>, <span class="number">1</span>, <span class="number">2</span>];</span><br><span class="line">arr.sort(<span class="function"><span class="keyword">function</span> (<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (x &lt; y) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (x &gt; y) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;); <span class="comment">// [1, 2, 10, 20]</span></span><br><span class="line"><span class="comment">// 倒序排序：</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> arr = [<span class="number">10</span>, <span class="number">20</span>, <span class="number">1</span>, <span class="number">2</span>];</span><br><span class="line">arr.sort(<span class="function"><span class="keyword">function</span> (<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (x &lt; y) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (x &gt; y) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;); <span class="comment">// [20, 10, 2, 1]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 按照字母序对字符串排序(将其全部变成大写或小写再比较)：</span></span><br><span class="line"><span class="keyword">var</span> arr = [<span class="string">'Google'</span>, <span class="string">'apple'</span>, <span class="string">'Microsoft'</span>];</span><br><span class="line">arr.sort(<span class="function"><span class="keyword">function</span> (<span class="params">s1, s2</span>) </span>&#123;</span><br><span class="line">    x1 = s1.toUpperCase();</span><br><span class="line">    x2 = s2.toUpperCase();</span><br><span class="line">    <span class="keyword">if</span> (x1 &lt; x2) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (x1 &gt; x2) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;); <span class="comment">// ['apple', 'Google', 'Microsoft']</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>闭包：高阶函数除了可以接受函数作为参数外，还可以把函数作为结果值返回。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">lazy_sum</span>(<span class="params">arr</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> sum = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> arr.reduce(<span class="function"><span class="keyword">function</span> (<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> x + y;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 当我们调用lazy_sum()时，返回的并不是求和结果，而是求和函数：</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> f = lazy_sum([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]); <span class="comment">// function sum()</span></span><br><span class="line"><span class="comment">// 调用函数f时，才真正计算求和的结果：</span></span><br><span class="line"></span><br><span class="line">f(); <span class="comment">// 15</span></span><br><span class="line"></span><br><span class="line">&lt;!-- 在这个例子中，我们在函数lazy_sum中又定义了函数sum，并且，内部函数sum</span><br><span class="line">可以引用外部函数lazy_sum的参数和局部变量，当lazy_sum返回函数sum时，</span><br><span class="line">**相关参数和变量都保存在返回的函数中**。</span><br><span class="line">当我们调用lazy_sum()时，每次调用都会返回一个新的函数，即使传入相同的参数： --&gt;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> f1 = lazy_sum([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]);</span><br><span class="line"><span class="keyword">var</span> f2 = lazy_sum([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]);</span><br><span class="line">f1 === f2; <span class="comment">// false</span></span><br><span class="line"><span class="comment">// f1()和f2()的调用结果互不影响。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 注意到返回的函数在其定义内部引用了局部变量arr，所以，当一个函数返回了一个函数后，其内部的局部变量还被新函数引用，</span></span><br><span class="line"><span class="comment">// 所以，闭包用起来简单，实现起来可不容易。</span></span><br><span class="line"><span class="comment">// 另一个需要注意的问题是，返回的函数并没有立刻执行，而是直到调用了f()才执行。我们来看一个例子：</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">count</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> arr = [];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">1</span>; i&lt;=<span class="number">3</span>; i++) &#123;</span><br><span class="line">        arr.push(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> i * i;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> results = count();</span><br><span class="line"><span class="keyword">var</span> f1 = results[<span class="number">0</span>];</span><br><span class="line"><span class="keyword">var</span> f2 = results[<span class="number">1</span>];</span><br><span class="line"><span class="keyword">var</span> f3 = results[<span class="number">2</span>];</span><br><span class="line"><span class="comment">// 在上面的例子中，每次循环，都创建了一个新的函数，然后，把创建的3个函数都添加到一个Array中返回了。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 你可能认为调用f1()，f2()和f3()结果应该是1，4，9，但实际结果是：</span></span><br><span class="line"></span><br><span class="line">f1(); <span class="comment">// 16</span></span><br><span class="line">f2(); <span class="comment">// 16</span></span><br><span class="line">f3(); <span class="comment">// 16</span></span><br><span class="line"><span class="comment">// 全部都是16！原因就在于**返回的函数引用了变量i**，但它**并非立刻执行**。等到3个函数都返回时，</span></span><br><span class="line"><span class="comment">// 它们所引用的变量i已经变成了4，因此最终结果为16。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 返回闭包时**牢记**的一点就是：**返回函数不要引用任何循环变量**，或者**后续会发生变化的变量**。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 如果一定要引用循环变量怎么办？方法是**再创建一个函数**，用该函数的参数绑定循环变量当前的值，</span></span><br><span class="line"><span class="comment">// 无论该循环变量后续如何更改，已绑定到函数参数的值不变：</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">count</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> arr = [];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">1</span>; i&lt;=<span class="number">3</span>; i++) &#123;</span><br><span class="line">        arr.push((<span class="function"><span class="keyword">function</span> (<span class="params">n</span>) </span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> n * n;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)(i));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> results = count();</span><br><span class="line"><span class="keyword">var</span> f1 = results[<span class="number">0</span>];</span><br><span class="line"><span class="keyword">var</span> f2 = results[<span class="number">1</span>];</span><br><span class="line"><span class="keyword">var</span> f3 = results[<span class="number">2</span>];</span><br><span class="line"></span><br><span class="line">f1(); <span class="comment">// 1</span></span><br><span class="line">f2(); <span class="comment">// 4</span></span><br><span class="line">f3(); <span class="comment">// 9</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 注意这里用了一个“创建一个匿名函数并立刻执行”的语法：</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x * x;</span><br><span class="line">&#125;)(<span class="number">3</span>); <span class="comment">// 9</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 理论上讲，创建一个匿名函数并立刻执行可以这么写：</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123; <span class="keyword">return</span> x * x &#125; (<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 但是由于JavaScript语法解析的问题，会报SyntaxError错误，因此需要用括号把整个函数定义括起来：</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123; <span class="keyword">return</span> x * x &#125;) (<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 通常，一个立即执行的匿名函数可以把函数体拆开，一般这么写：</span></span><br><span class="line">(<span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x * x;</span><br><span class="line">&#125;)(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 在面向对象的程序设计语言里，比如Java和C++，要在对象内部封装一个私有变量，可以用private修饰一个成员变量。</span></span><br><span class="line"><span class="comment">// 在没有class机制，只有函数的语言里，借助闭包，同样可以封装一个私有变量。我们用JavaScript创建一个计数器：</span></span><br><span class="line"></span><br><span class="line"><span class="meta">'use strict'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">create_counter</span>(<span class="params">initial</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> x = initial || <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        inc: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            x += <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">return</span> x;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 它用起来像这样：</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> c1 = create_counter();</span><br><span class="line">c1.inc(); <span class="comment">// 1</span></span><br><span class="line">c1.inc(); <span class="comment">// 2</span></span><br><span class="line">c1.inc(); <span class="comment">// 3</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> c2 = create_counter(<span class="number">10</span>);</span><br><span class="line">c2.inc(); <span class="comment">// 11</span></span><br><span class="line">c2.inc(); <span class="comment">// 12</span></span><br><span class="line">c2.inc(); <span class="comment">// 13</span></span><br><span class="line">&lt;!-- 在返回的对象中，实现了一个闭包，该闭包携带了局部变量x，</span><br><span class="line">并且，从外部代码根本无法访问到变量x。</span><br><span class="line">换句话说，闭包就是携带状态的函数，并且它的状态可以完全对外隐藏起来。</span><br><span class="line">闭包还可以把多参数的函数变成单参数的函数。</span><br><span class="line">例如，要计算xy可以用<span class="built_in">Math</span>.pow(x, y)函数，不过考虑到经常计算x2或x3，</span><br><span class="line">我们可以利用闭包创建新的函数pow2和pow3：--&gt;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">make_pow</span>(<span class="params">n</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">Math</span>.pow(x, n);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建两个新函数:</span></span><br><span class="line"><span class="keyword">var</span> pow2 = make_pow(<span class="number">2</span>);</span><br><span class="line"><span class="keyword">var</span> pow3 = make_pow(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">pow2(<span class="number">5</span>); <span class="comment">// 25</span></span><br><span class="line">pow3(<span class="number">7</span>); <span class="comment">// 343</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://www.webzhou.com/2016/03/23/JS简单笔记/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://www.webzhou.com/2016/03/23/JS简单笔记/&text=JS简单笔记"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://www.webzhou.com/2016/03/23/JS简单笔记/&title=JS简单笔记"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.webzhou.com/2016/03/23/JS简单笔记/&is_video=false&description=JS简单笔记"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JS简单笔记&body=Check out this article: http://www.webzhou.com/2016/03/23/JS简单笔记/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://www.webzhou.com/2016/03/23/JS简单笔记/&title=JS简单笔记"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://www.webzhou.com/2016/03/23/JS简单笔记/&title=JS简单笔记"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://www.webzhou.com/2016/03/23/JS简单笔记/&title=JS简单笔记"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://www.webzhou.com/2016/03/23/JS简单笔记/&title=JS简单笔记"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://www.webzhou.com/2016/03/23/JS简单笔记/&name=JS简单笔记&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 Frank Zhou
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/probberechts">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+
